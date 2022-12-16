@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>yixiao&fanghui</title>
+
+		<link rel="stylesheet" href="css/counter.css" />
+	</head>
+
+	<body>
+		<div class="love_you" id="box1" onclick="play()"></div>
+		<audio src="love.mp3" autoplay="autoplay" loop="loop"></audio>
+		<canvas id="lovexf"></canvas>
+		<script src="js/counter.js"></script>
+	</body>
+
+	<script>
+		function timingTime() {
+			let start = '2022-01-01';
+
+			let startTime = new Date(start).getTime();
+
+			let currentTime = new Date().getTime();
+			let difference = currentTime - startTime + 28800000;
+			let m = Math.floor(difference / 1000);
+			let mm = m % 60; // 秒
+			let f = Math.floor(m / 60);
+			let ff = f % 60; // 分钟
+			let s = Math.floor(f / 60); // 小时
+			let ss = s % 24;
+			let day = Math.floor(s / 24); // 天数
+			return day + '天' + ss + '时' + ff + '分' + mm;
+		}
+		setInterval(() => {
+			document.getElementById(
+				'box1'
+			).innerHTML = `一笑♥芳慧<br>${timingTime()}`;
+		}, 1000);
+	</script>
+</html>

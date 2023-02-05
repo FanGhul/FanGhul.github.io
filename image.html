@@ -2,10 +2,8 @@
 <html>
 	<head>
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<meta
-			http-equiv="Content-Security-Policy"
-			content="upgrade-insecure-requests"
-		/>
+		<title>将想象转化为现实</title>
+		<link rel="stylesheet" href="css/loading.css" />
 	</head>
 	<body>
 		<div class="header">
@@ -23,6 +21,9 @@
 			<div id="image-container" />
 		</div>
 		<div class="footer">For FanGhuI</div>
+		<div id="loading">
+			<div class="loading"></div>
+		</div>
 
 		<script>
 			const endpoint = 'http://139.9.116.12:8010/image';
@@ -33,7 +34,7 @@
 
 			submitButton.addEventListener('click', async () => {
 				const description = descriptionInput.value;
-
+				document.getElementById('loading').style.display = 'block';
 				try {
 					const response = await fetch(
 						endpoint + `?prompt=${description}&key=asqmkj`,
@@ -44,6 +45,7 @@
 							},
 						}
 					);
+					document.getElementById('loading').style.display = 'none';
 					const json = await response.json();
 					const imageUrl = json.data;
 					const imageElement = document.createElement('img');
@@ -52,6 +54,7 @@
 					imageContainer.appendChild(imageElement);
 				} catch (error) {
 					console.error(error);
+					document.getElementById('loading').style.display = 'none';
 				}
 			});
 		</script>

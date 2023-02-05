@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+	</head>
+	<body>
+		<div class="header">
+			<h1>将想象转化为现实</h1>
+		</div>
+		<div class="container">
+			<div class="input-container">
+				<input
+					type="text"
+					id="description"
+					placeholder="Enter a description"
+				/>
+				<button id="submit">Submit</button>
+			</div>
+			<div id="image-container" />
+		</div>
+		<div class="footer">For FanGhuI</div>
+
+		<script>
+			const endpoint = 'http://139.9.116.12:8010/image';
+
+			const submitButton = document.querySelector('#submit');
+			const descriptionInput = document.querySelector('#description');
+			const imageContainer = document.querySelector('#image-container');
+
+			submitButton.addEventListener('click', async () => {
+				const description = descriptionInput.value;
+
+				try {
+					const response = await fetch(
+						endpoint + `?prompt=${description}&key=asqmkj`,
+						{
+							method: 'Get',
+							headers: {
+								'Content-Type': 'application/json',
+							},
+						}
+					);
+					const json = await response.json();
+					const imageUrl = json.data;
+					const imageElement = document.createElement('img');
+					imageElement.src = imageUrl;
+					imageContainer.innerHTML = '';
+					imageContainer.appendChild(imageElement);
+				} catch (error) {
+					console.error(error);
+				}
+			});
+		</script>
+	</body>
+	<style>
+		.header {
+			margin-top: 30px;
+			text-align: center;
+			padding: 20px;
+		}
+		h1 {
+			animation: color-change 5s infinite;
+		}
+
+		@keyframes color-change {
+			0% {
+				color: #a0d8ef;
+			}
+			20% {
+				color: #89c3eb;
+			}
+			40% {
+				color: #2ca9e1;
+			}
+			60% {
+				color: #38a1db;
+			}
+			80% {
+				color: #0095d9;
+			}
+			100% {
+				color: #0094c8;
+			}
+		}
+		.container {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			margin-top: 10px;
+		}
+
+		.input-container {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			margin-bottom: 20px;
+		}
+
+		input[type='text'] {
+			padding: 10px;
+			font-size: 16px;
+			border-radius: 5px;
+			border: 1px solid #ccc;
+			margin-bottom: 20px;
+		}
+
+		button {
+			padding: 10px 20px;
+			background-color: lightblue;
+			border: none;
+			border-radius: 5px;
+			color: white;
+			font-size: 16px;
+			cursor: pointer;
+		}
+
+		img {
+			width: 300px;
+			height: 300px;
+		}
+		.footer {
+			margin-top: 500px;
+			text-align: center;
+			padding: 20px;
+		}
+		@media only screen and (max-width: 600px) {
+			/* 调整元素的大小和位置 */
+			img {
+				width: 80vw;
+				height: 80vw;
+			}
+			button {
+				width: 50vw;
+				height: 5vh;
+				padding: 10px 20px;
+				background-color: lightblue;
+				border: none;
+				border-radius: 5px;
+				color: white;
+				font-size: 16px;
+				cursor: pointer;
+			}
+			.footer {
+				margin-top: 80vw;
+				text-align: center;
+				padding: 20px;
+			}
+		}
+	</style>
+</html>
